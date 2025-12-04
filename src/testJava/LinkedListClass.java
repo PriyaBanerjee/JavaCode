@@ -45,6 +45,8 @@ public class LinkedListClass {
         printList(head);
         
         System.out.println(LengthLinklist(head));
+        System.out.println(FindKLinkList(head,80));//false
+        System.out.println(FindKLinkList(head,20));//true
 	}
 	
 	public static Node addFirst(Node head, int val) {
@@ -147,6 +149,24 @@ public class LinkedListClass {
 	    return count;
 	}
 
+	public static boolean FindKLinkList(Node head, int val) {
+		Node n = new Node(val);
+		if(head == null) {
+			return false;
+		}
+		
+		Node temp = head;
+		
+		while(temp != null) {
+			if(temp.val == val) {
+				return true;
+			}
+			temp = temp.next;
+		}
+		
+
+			return false;
+	}
 	
 	// Helper method to print list
     public static void printList(Node head) {
