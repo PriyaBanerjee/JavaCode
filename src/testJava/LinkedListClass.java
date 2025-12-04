@@ -46,7 +46,7 @@ public class LinkedListClass {
         
         System.out.println(LengthLinklist(head));
         System.out.println(FindKLinkList(head,80));//false
-        System.out.println(FindKLinkList(head,20));//true
+        System.out.println(FindKLinkList(head,20));//true FIND K
 	}
 	
 	public static Node addFirst(Node head, int val) {
