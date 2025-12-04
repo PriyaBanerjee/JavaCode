@@ -4,10 +4,10 @@ package testJava;
 public class LinkedListClass {
 	
 	public static class Node{
-		int data ;
+		public int val ;
 		Node next;
 		Node(int val){
-			this.data = val;
+			this.val = val;
 		}
 	}
 	
@@ -40,6 +40,11 @@ public class LinkedListClass {
         
         head = RemoveLast(head);
         printList(head);
+        
+        head = RemoveAt(head, 30);   // Remove node with value 30
+        printList(head);
+        
+        System.out.println(LengthLinklist(head));
 	}
 	
 	public static Node addFirst(Node head, int val) {
@@ -114,12 +119,40 @@ public class LinkedListClass {
 		
 	}
 	
+	   public static Node RemoveAt(Node head, int val) {
+	        if (head == null) return null;
+	        if (head.val == val) return head.next;
+	        Node current = head;
+	        while (current.next != null && current.next.val != val) {
+	            current = current.next;
+	        }
+	        if (current.next != null) {
+	            current.next = current.next.next;
+	        }
+	        return head;
+	    }
+	
+	public static int LengthLinklist(Node head) { 
+	    int count = 0;
+	    if (head == null) {
+	        return 0;
+	    }
+	    Node temp = head;
+	    
+	    while (temp != null) {  // ✅ Traverse until end
+	        count++;
+	        temp = temp.next;
+	    }
+	    
+	    return count;
+	}
+
 	
 	// Helper method to print list
     public static void printList(Node head) {
         Node temp = head;
         while (temp != null) {
-            System.out.print(temp.data + " ");
+            System.out.print(temp.val + " ");
             temp = temp.next;
         }
         System.out.println();
