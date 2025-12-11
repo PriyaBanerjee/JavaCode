@@ -1,5 +1,7 @@
 500+ Data Structures and Algorithms practice problems
 Array ( Under DSA Folder )
+
+
 1.Find pair with given sum in the array
 
 2.Check if subarray with 0 sum is exists or not
