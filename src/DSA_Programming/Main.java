@@ -11,6 +11,8 @@ public class Main {
         int B = 10;
         findPair(arr,B);
         findAllPair(arr,B);
+        int subarray = Subarray(arr1);
+        System.out.println("\n" + "Subarry exist : " + subarray);
     }
 
     //Find all pair with the given sum in an array
@@ -51,8 +53,20 @@ public class Main {
     }
 
     //Check if a subarray with 0 sum exists or not
-    public static void Subarray(int[] arr1){
-
+    //Brute force approach
+    // time complexity : O(N2)
+    public static int Subarray(int[] arr1){
+        int n = arr1.length;
+        for ( int i =0; i<n ; i++){
+            int sum =0;
+            for(int j =1; j< n ;j++){
+                sum += arr1[j];
+                if(sum == 0){
+                    return 1;
+                }
+            }
+        }
+        return 0;
     }
 
 }
