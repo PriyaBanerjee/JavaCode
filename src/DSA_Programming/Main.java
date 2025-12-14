@@ -1,5 +1,6 @@
 package DSA_Programming;
 
+import java.security.PublicKey;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -13,6 +14,9 @@ public class Main {
         findAllPair(arr,B);
         int subarray = Subarray(arr1);
         System.out.println("\n" + "Subarry exist : " + subarray);
+        printSubarray(arr1);
+        maxlengthSubarray(arr1);
+
     }
 
     //Find all pair with the given sum in an array
@@ -67,6 +71,49 @@ public class Main {
             }
         }
         return 0;
+    }
+
+    //Print all sub-arrays with 0 sum
+    //Tc:O(N2) , Space C : O(1)
+    public static void printSubarray(int[] A){
+        int n = A.length;
+        boolean found = false;
+        for (int i =0 ; i<n;i++){
+            int sum =0 ;
+            for(int j =i;j<n;j++){
+                sum += A[j];
+                if(sum == 0){
+                    for (int k = i; k <= j; k++) {
+                        System.out.print(A[k] + " ");
+                    }
+                    System.out.println();  // Fix 2: New line after each subarray
+                    found = true;
+                }
+            }
+        }
+        if(!found) {
+            System.out.println("No subarray exist");
+        }
+    }
+
+    //7.Find maximum length sub-array having given sum
+    public static void maxlengthSubarray(int[] A){
+        int n = A.length;
+        int maxLength = 0;
+        int start=0, end=0;
+        for(int i =0 ; i<n;i++){
+            int sum = 0;
+            for (int j=i;j<n;j++){
+                sum += A[j];
+                if (sum == 0 && (j-i+1)>maxLength){
+                    maxLength = j - i +1;
+                    start = i;
+                    end = j;
+                }
+
+            }
+        }
+        System.out.println("Maximum length array :" + maxLength);
     }
 
 }

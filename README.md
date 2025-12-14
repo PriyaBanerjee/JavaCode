@@ -2,19 +2,19 @@
 Array ( Under DSA Folder )
 
 
-1.Find pair with given sum in the array
+1.Find pair with given sum in the array - DONE 
 
-2.Check if subarray with 0 sum is exists or not
+2.Check if subarray with 0 sum is exists or not - DONE
 
-3.Print all sub-arrays with 0 sum
+3.Print all sub-arrays with 0 sum - DONE
 
 4.Sort binary array in linear time
 
 5.Find a duplicate element in a limited range array
 
-6.Find largest sub-array formed by consecutive integers
+6.Find largest sub-array formed by consecutive integers 
 
-7.Find maximum length sub-array having given sum
+7.Find maximum length sub-array having given sum - Done
 
 8.Find maximum length sub-array having equal number of 0’s and 1’s
 
