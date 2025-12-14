@@ -12,7 +12,7 @@ Array ( Under DSA Folder )
 
 5.Find a duplicate element in a limited range array
 
-6.Find largest sub-array formed by consecutive integers 
+6.Find largest sub-array formed by consecutive integers -Done
 
 7.Find maximum length sub-array having given sum - Done
 

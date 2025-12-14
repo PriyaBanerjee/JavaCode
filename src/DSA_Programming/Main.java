@@ -16,6 +16,7 @@ public class Main {
         System.out.println("\n" + "Subarry exist : " + subarray);
         printSubarray(arr1);
         maxlengthSubarray(arr1);
+        largestSubarrayconsecutive(arr1);
 
     }
 
@@ -114,6 +115,28 @@ public class Main {
             }
         }
         System.out.println("Maximum length array :" + maxLength);
+    }
+
+    //6.Find largest sub-array formed by consecutive integers
+    public static void largestSubarrayconsecutive(int[] a){
+        int n = a.length;
+        int maxLength = 1;
+        int start = 0;
+        for(int i =0 ; i< n;i++){
+            if(i>0 && a[i] == a[i-1]) continue;
+            int len =1;
+            while(i+len < n && a[i+len]== a[i]+len){
+                len++;
+            }
+            if(len>maxLength){
+                maxLength = len;
+                start = i;
+            }
+        }
+        for(int i = start; i < start+maxLength; i++){
+            System.out.print(a[i]+",");
+        }
+        System.out.println("length: "+ maxLength );
     }
 
 }
