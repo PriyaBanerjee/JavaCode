@@ -1,4 +1,7 @@
 package DSA_Programming;
+
+import java.util.Arrays;
+
 // Scaler classes code practice
 public class PracticeCode {
     public static void main(String[] args){
@@ -10,6 +13,14 @@ public class PracticeCode {
         int r = 6;
         sumofarrayLtoR(arr1,l,r);
         sumofarray(arr1, arr2);
+        prefixSumArray(arr1,l,r);
+        int[] prefixOutputEven = getprefixEvenIndexes(arr);
+        System.out.println("Even Indexes: " + Arrays.toString(prefixOutputEven));
+        int[] prefixOutputOdd = getprefixOddIndexes(arr);
+        System.out.println("Odd Indexes: " + Arrays.toString(prefixOutputOdd));
+        int[] dummy = new int[7];
+        int[] ApOutput =    arithemeticProgression(dummy,1,2);
+        System.out.println("Arithmetic Progression : "+ Arrays.toString(ApOutput));
     }
 
 
@@ -49,7 +60,78 @@ public class PracticeCode {
         }
     }
 
-    // prefix Sum code
+    // prefix Sum code called three function build prefix - where we create an array with prefix sum
+    // second get range from the builder prefix array we are picking range and add it
+    // third prefix sum array where we calculate all the sum from prefix array
+    public static int[] buildprefixarr(int[] a){
+     int n = a.length;
+     int[] prefix = new int[n];
+     prefix[0] = a[0];
+     for (int i =1; i< n;i++){
+       prefix[i] = prefix[i-1] + a[i];
+     }
+     return prefix;
+    }
+    public static int getRangeSum(int[] prefix, int l, int r) {
+        if (l == 0) {
+            return prefix[r];
+        }
 
+        return prefix[r] - prefix[l - 1];
+    }
+
+    public static void prefixSumArray(int[] a, int l, int r){
+        int n = a.length;
+        if(l < 0 || r >= n || l == r){
+            System.out.println("Array error or range error");
+        }
+        int[] prefix = buildprefixarr(a);
+        int sum = getRangeSum(prefix,l,r);
+        System.out.println("Sum[" + l + ".." + r + "] = " + sum);
+    }
+
+    // PREFIX SUM OF Even and odd  indexes
+    public static int[] getprefixEvenIndexes(int[] a){
+        int n = a.length;
+        int[] prefix = new int[n];
+        prefix[0] = a[0];
+        for ( int i = 1 ; i< n ; i++){
+            if (i % 2 == 0){
+                // prefix of even indexes
+                prefix[i] = prefix[i-1] + a[i];
+            }
+
+        }
+        return prefix;
+    }
+
+    public static int[] getprefixOddIndexes(int[] a){
+        int n = a.length;
+        int[] prefix = new int[n];
+        prefix[0] = a[0];
+        for ( int i = 1 ; i< n ; i++){
+            if (i % 2 != 0){
+                // prefix of even indexes
+                prefix[i] = prefix[i-1] + a[i];
+            }
+
+        }
+        return prefix;
+    }
+
+    // series Arthiemetic progression a= 1, d =4 find the 6 th term or all terms till 6 th
+    public static int[] arithemeticProgression(int[] n, int a, int d){
+        //int ap = 0;
+        int size = n.length;
+        int[] ap = new int[size];
+        for(int i = 0; i < size ;i++){
+                // d = common difference
+                // n = nth element
+                // a = first element
+                ap[i] = a + (i* d);
+        }
+        return ap;
+
+    }
 
 }

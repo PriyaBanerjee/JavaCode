@@ -9,11 +9,12 @@ public class Main {
     // questions from Read me - practice
     public static void main(String[] args){
         int[] arr = {8, 7, 2, 5, 3, 1};
+        int[] arr3 = {8, 7, 2, 5, 3, -8};
         int[] arr1= { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 };
         int B = 10;
         findPair(arr,B);
         findAllPair(arr,B);
-        int subarray = Subarray(arr1);
+        int subarray = Subarray(arr3);
         System.out.println("\n" + "Subarry exist : " + subarray);
         printSubarray(arr1);
         maxlengthSubarray(arr1);
@@ -65,7 +66,7 @@ public class Main {
         int n = arr1.length;
         for ( int i =0; i<n ; i++){
             int sum =0;
-            for(int j =1; j< n ;j++){
+            for(int j =i; j< n ;j++){
                 sum += arr1[j];
                 if(sum == 0){
                     return 1;
