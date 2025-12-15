@@ -120,6 +120,7 @@ public class PracticeCode {
     }
 
     // series Arthiemetic progression a= 1, d =4 find the 6 th term or all terms till 6 th
+    //TC : o(n) and SC : O(1)
     public static int[] arithemeticProgression(int[] n, int a, int d){
         //int ap = 0;
         int size = n.length;
