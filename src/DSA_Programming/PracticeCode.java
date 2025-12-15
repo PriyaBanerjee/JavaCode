@@ -99,6 +99,8 @@ public class PracticeCode {
             if (i % 2 == 0){
                 // prefix of even indexes
                 prefix[i] = prefix[i-1] + a[i];
+            }else{
+                prefix[i] = prefix[i-1];
             }
 
         }
@@ -108,11 +110,13 @@ public class PracticeCode {
     public static int[] getprefixOddIndexes(int[] a){
         int n = a.length;
         int[] prefix = new int[n];
-        prefix[0] = a[0];
+        prefix[0] = 0;
         for ( int i = 1 ; i< n ; i++){
             if (i % 2 != 0){
-                // prefix of even indexes
+                // prefix of odd indexes
                 prefix[i] = prefix[i-1] + a[i];
+            }else{
+                prefix[i] = prefix[i-1];
             }
 
         }
