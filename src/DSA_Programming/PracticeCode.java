@@ -6,8 +6,10 @@ import java.util.Arrays;
 public class PracticeCode {
     public static void main(String[] args){
         int[] arr = {4,3,2,7,6,-2};
+        int[] arr3 = {1,2,8,4,9,3,2};
         int[] arr1= { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 };
         int[][] arr2 = {{3, 4}, {-7, 3}, {1, 3}};
+        int[][] arr4 = {{3, 4}, {1, 3}, {2, 5}};
         int l = 2;
         //int r = 10;
         int r = 6;
@@ -22,7 +24,13 @@ public class PracticeCode {
         int[] ApOutput =    arithemeticProgression(dummy,1,2);
         System.out.println("Arithmetic Progression : "+ Arrays.toString(ApOutput));
         int specialIndexOutput = specialIndex(arr);
-        System.out.println("Special Index count: "+specialIndexOutput);
+        System.out.println("Special Index count: " + specialIndexOutput);
+        int MinMaxSubarrayOutput = MinMaxSubarray(arr3);
+        System.out.println("Subarry minimum length: " + MinMaxSubarrayOutput);
+        int[] A={1,2,3,4,5};
+        int[][] B={{0,2},{2,4},{1,4}};
+        int[] evenNumberRangeOutput = evenNumberRange(A,B);
+        System.out.println("Even number from a range: " + Arrays.toString(evenNumberRangeOutput));
     }
 
 
@@ -171,7 +179,63 @@ public class PracticeCode {
     }
 
 
-    //find min and max with minmum length subarray
+    //find min and max with minimum length subarray
+    public static int MinMaxSubarray(int[] a){
+        int n = a.length;
+        int min = a[0];
+        int max = a[0];
+        for(int i =0 ; i<n;i++){
+            min = Math.min(min, a[i]);
+            max = Math.max(max,a[i]);
+        }
+        if (min == max) return 1;
+        int last_min = -1;
+        int last_max = -1;
+        int minlength = n;
+        for(int i =n-1 ; i>=0 ; i--){
+            if (a[i] == max){
+                    last_max = i;
+                }
+            if(a[i] == min){
+                last_min = i;
+            }
+            if (last_max != -1 && last_min != -1){
+                int currlength = Math.abs(last_min - last_max) + 1;
+                minlength = Math.min(minlength,currlength);
+            }
+
+        }
+        return minlength;
+    }
+
+    //Even numbers in a range
+    public static int[] evenNumberRange(int[] a, int[][] range) {
+        int n = a.length;
+        int q = range.length;
+        int[] prefix_even = new int[n+1];
+        for(int i = 0; i < n; i++) {
+            if(a[i] % 2 == 0) {
+                prefix_even[i+1] = prefix_even[i] + 1;
+            } else {
+                prefix_even[i+1] = prefix_even[i];
+            }
+        }
+        // otherways to write the above line
+        //Original ternary is best!- prefix_even[i+1] = prefix_even[i] + (a[i] % 2 == 0 ? 1 : 0)
+        // integer division - for(int i = 0; i < n; i++) {
+        //    prefix_even[i+1] = prefix_even[i] + ((a[i] & 1) ^ 1);  // 0 for even, 1 for odd → flip
+        //}
+        //math.abs -  prefix_even[i+1] = prefix_even[i] + (1 - Math.abs(a[i] % 2));
+        int[] result = new int[q];
+        for(int i =0 ; i < q;i++){
+            int left = range[i][0];
+            int right = range[i][1];
+            // prefix[] = r - l + 1;
+            result[i] = prefix_even[right +1] - prefix_even[left];
+        }
+        return result;
+    }
+
 
 
 }
