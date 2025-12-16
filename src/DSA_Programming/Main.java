@@ -119,6 +119,8 @@ public class Main {
         System.out.println("Maximum length array :" + maxLength);
     }
 
+
+
     //6.Find largest sub-array formed by consecutive integers
     public static void largestSubarrayconsecutive(int[] a){
         int n = a.length;

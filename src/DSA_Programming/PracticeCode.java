@@ -5,7 +5,7 @@ import java.util.Arrays;
 // Scaler classes code practice
 public class PracticeCode {
     public static void main(String[] args){
-        int[] arr = {8, 7, 2, 5, 3, 1};
+        int[] arr = {4,3,2,7,6,-2};
         int[] arr1= { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 };
         int[][] arr2 = {{3, 4}, {-7, 3}, {1, 3}};
         int l = 2;
@@ -21,6 +21,8 @@ public class PracticeCode {
         int[] dummy = new int[7];
         int[] ApOutput =    arithemeticProgression(dummy,1,2);
         System.out.println("Arithmetic Progression : "+ Arrays.toString(ApOutput));
+        int specialIndexOutput = specialIndex(arr);
+        System.out.println("Special Index count: "+specialIndexOutput);
     }
 
 
@@ -90,6 +92,22 @@ public class PracticeCode {
         System.out.println("Sum[" + l + ".." + r + "] = " + sum);
     }
 
+    // series Arthiemetic progression a= 1, d =4 find the 6 th term or all terms till 6 th
+    //TC : o(n) and SC : O(1)
+    public static int[] arithemeticProgression(int[] n, int a, int d){
+        //int ap = 0;
+        int size = n.length;
+        int[] ap = new int[size];
+        for(int i = 0; i < size ;i++){
+                // d = common difference
+                // n = nth element
+                // a = first element
+                ap[i] = a + (i* d);
+        }
+        return ap;
+
+    }
+
     // PREFIX SUM OF Even and odd  indexes
     public static int[] getprefixEvenIndexes(int[] a){
         int n = a.length;
@@ -123,20 +141,37 @@ public class PracticeCode {
         return prefix;
     }
 
-    // series Arthiemetic progression a= 1, d =4 find the 6 th term or all terms till 6 th
-    //TC : o(n) and SC : O(1)
-    public static int[] arithemeticProgression(int[] n, int a, int d){
-        //int ap = 0;
-        int size = n.length;
-        int[] ap = new int[size];
-        for(int i = 0; i < size ;i++){
-                // d = common difference
-                // n = nth element
-                // a = first element
-                ap[i] = a + (i* d);
+    // Special Index ( very important asked in multiple interview)
+    // Special index are those indexes after removing of which total sum of odd indexes and total sum of even indexes is equal
+    public static int specialIndex(int[] a){
+        // called getprefixEvenIndexes,getprefixOddIndexes
+        int n = a.length;
+        if (n <= 1) return 0;
+        int[] prefix_even =  getprefixEvenIndexes(a);
+        int[] prefix_odd = getprefixOddIndexes(a);
+        int ans = 0;
+        for(int i =0 ; i < n ;i++){
+            int sum_even = 0, sum_odd = 0;
+            if (i == 0) {
+                // Left: empty (0,0)
+                // Right: indices 1 to n-1, all parity flipped
+                int right_orig_even = prefix_even[n-1] - prefix_even[0];
+                int right_orig_odd = prefix_odd[n-1] - prefix_odd[0];
+                sum_even = right_orig_odd;  // flipped
+                sum_odd = right_orig_even;  // flipped
+            }else {
+                sum_even = prefix_even[i - 1] + prefix_odd[n - 1] - prefix_odd[i];
+                sum_odd = prefix_odd[i - 1] + prefix_even[n - 1] - prefix_even[i];
+            }
+           if(sum_even == sum_odd){
+               ans++;
+           }
         }
-        return ap;
-
+        return ans;
     }
+
+
+    //find min and max with minmum length subarray
+
 
 }
