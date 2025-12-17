@@ -31,6 +31,10 @@ public class PracticeCode {
         int[][] B={{0,2},{2,4},{1,4}};
         int[] evenNumberRangeOutput = evenNumberRange(A,B);
         System.out.println("Even number from a range: " + Arrays.toString(evenNumberRangeOutput));
+        int sumoddIndexedElementOP  = sumoddIndexedElement(arr);
+        System.out.println("Sum of odd indexed element: " + sumoddIndexedElementOP);
+        int sumevenIndexedElementOP  = sumevenIndexedElement(arr);
+        System.out.println("Sum of even indexed element: " + sumevenIndexedElementOP);
     }
 
 
@@ -236,6 +240,41 @@ public class PracticeCode {
         return result;
     }
 
+    //Sum of odd indexed element in a range
+    // TC = O(N) , sc : O(n)
+    public static int sumoddIndexedElement(int[] a){
+        int n = a.length;
+        if (n == 0) return 0;
+        int[] prefix_Sum = new int[n];
+        int result = 0;
+        prefix_Sum[0] = 0;
+        for(int i = 1 ; i < n;i++){
+            if(i%2 != 0){
+                prefix_Sum[i]= prefix_Sum[i-1] + a[i];
+            }else{
+                prefix_Sum[i] = prefix_Sum[i-1];
+            }
+            result = prefix_Sum[n-1];
+        }
+        return result;
+    }
 
+    // above code optimized way // tc : n and sc : 1
+    public static int sumoddIndexedElement_optimized(int[] a) {
+        int sum = 0;
+        for (int i = 1; i < a.length; i += 2) {
+            sum += a[i];
+        }
+        return sum;
+    }
+
+    public static int sumevenIndexedElement(int[] a){
+        int sum = 0;
+        int n = a.length;
+        for(int i = 0; i < n ; i += 2 ){
+            sum += a[i];
+        }
+        return sum;
+    }
 
 }
