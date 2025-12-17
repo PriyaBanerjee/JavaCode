@@ -268,6 +268,7 @@ public class PracticeCode {
         return sum;
     }
 
+    // tc : n and sc : 1
     public static int sumevenIndexedElement(int[] a){
         int sum = 0;
         int n = a.length;
