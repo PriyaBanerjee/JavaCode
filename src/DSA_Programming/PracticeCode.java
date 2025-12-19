@@ -35,6 +35,21 @@ public class PracticeCode {
         System.out.println("Sum of odd indexed element: " + sumoddIndexedElementOP);
         int sumevenIndexedElementOP  = sumevenIndexedElement(arr);
         System.out.println("Sum of even indexed element: " + sumevenIndexedElementOP);
+        int[] arr_maxprofit= { 2,4,1,4,7,8,5 }; // output is 7
+        int BestTimeToBuyandSellstockOP  = BestTimeToBuyandSellstock(arr_maxprofit);
+        System.out.println("Maximum Profit: " + BestTimeToBuyandSellstockOP);
+        int[] A1 = {6, 7, 8, 2};
+        int B1 = 2;
+        int maxSumFixedLengthOP  = maxSumFixedLength(A1,B1);
+        System.out.println("Maximum Sum: " + maxSumFixedLengthOP);
+
+
+        int leastaverageSubarrayOP  = leastaverageSubarray(A1,B1);
+        System.out.println("Subarray with least average: " + leastaverageSubarrayOP);
+        int[] A2 = {2, 5, 6};
+        int B2 = 10;
+        int countingSubarrayOP  = countingSubarray(A2,B2);
+        System.out.println("Counting Subarrays: " + countingSubarrayOP);
     }
 
 
@@ -276,6 +291,85 @@ public class PracticeCode {
             sum += a[i];
         }
         return sum;
+    }
+
+    public static int BestTimeToBuyandSellstock(int[] a){
+        int max_profit = 0;
+        int minprice = a[0];
+        int n = a.length;
+        if ( n == 0) return 0;
+        for(int i = 0; i < n; i++){
+            if(a[i] < minprice){
+                minprice = a[i];
+            }else{
+                max_profit = Math.max(max_profit , a[i] - minprice);
+            }
+        }
+        return max_profit;
+    }
+
+    // maximum sum of fixed length
+    //tc : O(n) SC: 1
+    public static int maxSumFixedLength(int[] A, int B){
+        int n = A.length;
+        long sum = 0;
+
+        for(int i = 0 ; i < B; i++){
+            sum += A[i];
+            System.out.println("Sum"+sum);
+
+        }
+        long max = sum;
+        for(int j = B ; j < n; j++){
+            sum += A[j];
+            sum -= A[j - B];
+            if ( sum > max ){
+                max = sum;
+                System.out.println(sum);
+            }
+        }
+
+        return Math.toIntExact(max);
+    }
+    //Given an array A of size N, find the subarray of size B with the least average.
+    public static int leastaverageSubarray(int[] A, int B){
+        int n = A.length;
+        long average = 0;
+        long sum = 0;
+        for(int i =0 ; i < B; i++){
+            sum += A[i];
+        }
+       long minSum = sum;
+        int minstartindex = 0;
+        for(int i = B; i < n ; i++){
+            sum += A[i];
+            sum -= A[i - B];
+            if(sum < minSum){
+                sum = minSum;
+                minstartindex = i - B + 1;
+            }
+        }
+        return minstartindex;
+    }
+
+    //Given an array A of N non-negative numbers and a non-negative number B,
+    //you need to find the number of subarrays in A with a sum less than B.
+    //We may assume that there is no overflow.
+    public static int countingSubarray(int[] A, int B) {
+        int n = A.length;
+        int left = 0;
+        long sum = 0;
+        int count = 0;
+        if ( n < 0) return 0;
+        for(int i =0 ; i<n;i++){
+            sum += A[i];
+            while(left <= i && sum >= B){
+                sum -= A[left];
+                left ++;
+            }
+            count += (i - left + 1);
+        }
+    return count ;
     }
 
 }
