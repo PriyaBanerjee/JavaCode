@@ -42,8 +42,6 @@ public class PracticeCode {
         int B1 = 2;
         int maxSumFixedLengthOP  = maxSumFixedLength(A1,B1);
         System.out.println("Maximum Sum: " + maxSumFixedLengthOP);
-
-
         int leastaverageSubarrayOP  = leastaverageSubarray(A1,B1);
         System.out.println("Subarray with least average: " + leastaverageSubarrayOP);
         int[] A2 = {2, 5, 6};
