@@ -9,6 +9,7 @@ public class Array_Sorting {
         //declares and initializes
         int[] A = {3,2,4,6,3,4,6,9,0,4,5,7,8,5,3};
         int[] nobleInteger = {-10,-5,3,4,1,5};
+        // single
         int B = 6;
         //call without static method
         //19/12/2025- Memory Management and sorting Basic
