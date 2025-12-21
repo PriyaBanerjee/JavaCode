@@ -13,6 +13,7 @@ public class PracticeCode {
         int l = 2;
         //int r = 10;
         int r = 6;
+        //call without static method
         sumofarrayLtoR(arr1,l,r);
         sumofarray(arr1, arr2);
         prefixSumArray(arr1,l,r);
@@ -48,6 +49,11 @@ public class PracticeCode {
         int B2 = 10;
         int countingSubarrayOP  = countingSubarray(A2,B2);
         System.out.println("Counting Subarrays: " + countingSubarrayOP);
+
+        int[] A4 = {13, 16, 16, 15, 9, 16, 2, 7, 6, 17, 3, 9};
+        int B4 = 65;
+        int GoodsubarrayOP  = Goodsubarray(A4,B4);
+        System.out.println("Good Subarrays: " + GoodsubarrayOP);
     }
 
 
@@ -364,10 +370,32 @@ public class PracticeCode {
             while(left <= i && sum >= B){
                 sum -= A[left];
                 left ++;
+
             }
             count += (i - left + 1);
         }
     return count ;
     }
 
+
+    public static int Goodsubarray(int[] A , int B){
+        int ans = 0;
+        int n = A.length;
+        long[] prefix = new long[n+1];
+        for(int i =1 ; i<=n;i++){
+            prefix[i] = prefix[i - 1] + A[i-1];
+        }
+
+        for(int i = 0 ; i < n ; i++){
+            for(int j = i ;j <n ; j++){
+                long sum = prefix[j+1] - prefix[i];
+                int len = j - i + 1; // formula a,b = b-a+1
+                if((len % 2 == 0 && sum <B) || (len % 2 != 0 && sum > B)){
+                    ans ++;
+                }
+            }
+        }
+
+        return ans;
+    }
 }
