@@ -1,11 +1,11 @@
-package Self_Practice;
+package Self_Practice_Leetcode;
 
 import java.util.Arrays;
 
 public class Array_Technique {
     public static void main(String[] args){
         //definition and Initialization
-        int[] A = {3,7,3,6,8,3,2,1,0,9};
+        int[] A = {3,7,3,6,2,8,1,3,2,1,0,9};
         //Method call
         SumOfAllArray(A);
         countEvenOdd(A);
@@ -15,6 +15,17 @@ public class Array_Technique {
         int[] prefix = buildPrefix(A);
         int countEventop = countEvent(prefix,2,7);
         System.out.println("Total count of even number using Prefix technique: "+countEventop);
+        String[] strs = {"flower","flow","flight"};
+        String longestCommonPrefixop = LongestCommonPrefixapp(strs);
+        System.out.println("Longest common prefix: " + longestCommonPrefixop);
+
+        int[] removeduplicateop = removeduplicate(A);
+        System.out.println("Remove Duplicates from Sorted Array: "+ Arrays.toString(removeduplicateop));
+        int[] removeElementvalop = removeElementval(A,3);
+        System.out.println("Remove Duplicates from Sorted Array: "+ Arrays.toString(removeElementvalop));
+        int[] nums = {4,1,2,1,2};
+        int findsingleNumberop = findsingleNumber(nums);
+        System.out.println("Find single element where every number in pair : "+ findsingleNumberop);
     }
 
     // Method definition
@@ -130,4 +141,85 @@ public class Array_Technique {
         if (s > e) return 0;
         return prefix[e] - (s > 0 ? prefix[s - 1] : 0);
     }
+
+    //14. Longest Common Prefix - tc (nlogn)
+    public static String longestCommonPrefix(String[] str){
+        StringBuilder res = new StringBuilder();
+        // sort the array
+        Arrays.sort(str);
+        // find the first and last element
+        char[] first = str[0].toCharArray();
+        char[] last = str[str.length -1].toCharArray();
+        // run a loop on each element
+        for (int i =0; i < first.length; i++){
+            if(first[i] != last[i])
+                break;
+            res.append(first[i]);
+        }
+
+        return res.toString();
+    }
+    //14. Longest Common Prefix- prefix sum approach tc: (n)
+    public static String LongestCommonPrefixapp(String[] strs){
+        if( strs == null || strs.length == 0) return "";
+        String prefix = strs[0];
+        for(int i =0 ; i< strs.length;i++){
+            while(strs[i].indexOf(prefix) != 0){
+                prefix = prefix.substring(0, strs.length -1);
+                if(prefix.isEmpty())
+                    return null;
+            }
+
+        }
+        return prefix;
+    }
+
+    //26. Remove Duplicates from Sorted Array
+    public static int[] removeduplicate(int[] num){
+        int n = num.length;
+        Arrays.sort(num);
+        if(n == 0) return null;
+        int j = 1;
+        for(int i = 1 ; i < n ; i++){
+            if(num[i] != num[i-1]){
+                num[j++] = num[i];
+            }
+        }
+        int[] res = new int[j];
+        System.arraycopy(num,0,res,0,j);
+        return res ;
+    }
+
+    //Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
+    //7. Remove Element
+    public static int[] removeElementval(int[] A, int B){
+        int n = A.length;
+        int j = 0;
+        if(n == 0) return null;
+        for(int i =0;i<n;i++){
+            if(A[i] != B){
+                A[j++] = A[i];
+            }
+        }
+        int[] res = new int[j];
+        System.arraycopy(A,0,res,0,j);
+        return res;
+    }
+
+    public static int findsingleNumber(int[] A) {
+        int n = A.length;
+        int j = 0;
+        for (int i : A) {
+           j ^= i;
+        }
+    return j;
+    }
+
+    //Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+    //You must write an algorithm with O(log n) runtime complexity.
+    //35. Search Insert Position
+    public int searchInsert(int[] nums, int target) {
+        return 0;
+    }
+
 }
