@@ -1,6 +1,9 @@
 package Self_Practice_Leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Array_Technique {
     public static void main(String[] args){
@@ -26,6 +29,9 @@ public class Array_Technique {
         int[] nums = {4,1,2,1,2};
         int findsingleNumberop = findsingleNumber(nums);
         System.out.println("Find single element where every number in pair : "+ findsingleNumberop);
+        int[] nums1 = {-1,0,1,2,-1,-4};
+        List<List<Integer>> threesumop= threeSum(nums1);
+        System.out.println("Three sum : "+ threesumop);
     }
 
     // Method definition
@@ -222,4 +228,33 @@ public class Array_Technique {
         return 0;
     }
 
+    //15. 3Sum - Dynamic array
+    //Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+    public static List<List<Integer>> threeSum(int[] nums){
+        Arrays.sort(nums);
+        int n = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
+        for(int i = 0 ; i < n -2 ;i++){
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int left = i+1;
+            int right = n-1;
+            while(left < right){
+                int sum = nums[i]+nums[left]+nums[right];
+                if(sum == 0) {
+                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while (left < right && nums[left] == nums[left + 1]) left++;
+                    // Skip duplicates on right
+                    while (left < right && nums[right] == nums[right - 1]) right--;
+                    left++;
+                    right --;
+                }else if (sum < 0) {
+                    left++;    // need bigger sum
+                } else {
+                    right--;   // need smaller sum
+                }
+            }
+
+        }
+        return res;
+    }
 }
