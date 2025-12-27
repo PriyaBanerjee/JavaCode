@@ -19,6 +19,8 @@ public class twoDMatrix {
         System.out.println((Arrays.deepToString(rowtocolumnZeroop)));
         int[] pricipalDiagonalop = pricipalDiagonal(mat);
         System.out.println((Arrays.toString(pricipalDiagonalop)));
+        int[][] MaxtrixProductop = MaxtrixProduct(mat,2);
+        System.out.println((Arrays.deepToString(MaxtrixProductop)));
     }
 
     //Print Anti Diagonal
@@ -150,4 +152,16 @@ public class twoDMatrix {
         return sum;
     }
 
+    //Q2. Matrix Scalar Product
+    public static int[][] MaxtrixProduct(int[][] A, int B) {
+        int r = A.length;
+        int c =  A[0].length;
+        int[][] res = new int[r][c];
+        for(int i = 0 ; i < r ; i++){
+            for (int j = 0 ; j < c;j++){
+                res[i][j] = A[i][j] * B;
+            }
+        }
+        return res;
+    }
 }
