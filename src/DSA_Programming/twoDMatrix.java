@@ -21,6 +21,12 @@ public class twoDMatrix {
         System.out.println((Arrays.toString(pricipalDiagonalop)));
         int[][] MaxtrixProductop = MaxtrixProduct(mat,2);
         System.out.println((Arrays.deepToString(MaxtrixProductop)));
+        int[][] mat3 = {{1,2,3},{4,5,6},{7,8,9}};
+        int[][] mat4 = {{1,2,3},{4,5,6}};
+        int[][] transposeop = transpose(mat3);
+        int[][] transposeNonsquareop = transposeNonsquare(mat4);
+        System.out.println((Arrays.deepToString(transposeop)));
+        System.out.println((Arrays.deepToString(transposeNonsquareop)));
     }
 
     //Print Anti Diagonal
@@ -164,4 +170,39 @@ public class twoDMatrix {
         }
         return res;
     }
+
+    //29/12/2025
+    //Given a 2D integer array A, return the transpose of A.
+    //The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.
+    //Q5. Matrix Transpose
+    public static int[][] transpose(int[][] A) { // Square matrix
+        int n = A.length;
+        for(int r = 0 ; r< n ; r++){
+            for(int c = r+1 ; c < n ; c++) {
+                if (r != c) {
+                    int temp = A[r][c];
+                    A[r][c] = A[c][r];
+                    A[c][r] = temp;
+                }else{
+                    A[r][c] = A[r][c];
+                }
+            }
+        }
+    return A;
+    }
+
+    //Time: O(rows × cols), Space: O(cols × rows)
+    public static int[][] transposeNonsquare(int[][] A){
+        int rows = A.length;
+        int cols = A[0].length;
+        int[][] transpose = new int[cols][rows];
+        for(int i = 0 ; i < rows; i++){
+            for(int j = 0 ; j < cols; j++){
+                transpose[j][i] = A[i][j];
+            }
+        }
+        return transpose;
+    }
+
+
 }
