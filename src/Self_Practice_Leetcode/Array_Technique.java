@@ -2,7 +2,6 @@ package Self_Practice_Leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Array_Technique {
@@ -19,7 +18,7 @@ public class Array_Technique {
         int countEventop = countEvent(prefix,2,7);
         System.out.println("Total count of even number using Prefix technique: "+countEventop);
         String[] strs = {"flower","flow","flight"};
-        String longestCommonPrefixop = LongestCommonPrefixapp(strs);
+        String longestCommonPrefixop = String.valueOf(LongestCommonPrefixapp(strs));
         System.out.println("Longest common prefix: " + longestCommonPrefixop);
 
         int[] removeduplicateop = removeduplicate(A);

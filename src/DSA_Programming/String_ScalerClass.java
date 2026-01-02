@@ -1,5 +1,8 @@
 package DSA_Programming;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class String_ScalerClass {
     public static void main(String[] args) {
         String str = "aeiOUzaeiOUz";
@@ -23,7 +26,85 @@ public class String_ScalerClass {
         System.out.println(occurancescountop);
         String reverseop = reverse(str);
         System.out.println(reverseop);
+
+        // Test cases for reversing words in a string
+        String str9 = "the sky is blue";
+        String reversedStr1 = reverseWords(str9);
+        System.out.println("Original: '" + str9 + "'");
+        System.out.println("Reversed: '" + reversedStr1 + "'"); // Expected: 'blue is sky the'
+
+        String str8 = "  this   is   ib  ";
+        String reversedStr2 = reverseWords(str8);
+        System.out.println("Original: '" + str8 + "'");
+        System.out.println("Reversed: '" + reversedStr2 + "'");
+
+        // Test cases for longest consecutive ones
+        String binStr1 = "111011101";
+        System.out.println("Longest for " + binStr1 + ": " + longestConsecutiveOnes(binStr1)); // Expected: 7
+
+        String binStr2 = "111000";
+        System.out.println("Longest for " + binStr2 + ": " + longestConsecutiveOnes(binStr2)); // Expected: 3
+        int num2 = 236;
+        System.out.println("Is " + num2 + " a Colorful Number? " + colorfulNumber(num2));
+
+        String str7 = "abc";
+        String str10 = "cbd";
+        System.out.println("Are " + str7 + " and " + str10 + " anagrams? " + anagrams(str7, str10));
+
     }
+
+    //Q3. Length of longest consecutive ones
+    //Given a binary string A. It is allowed to do at most one swap between any 0 and 1. Find and return the length of the longest consecutive 1’s that can be achieved.
+    // Q3. Length of longest consecutive ones - OPTIMIZED
+    // Given a binary string A. It is allowed to do at most one swap between any 0 and 1.
+    // Find and return the length of the longest consecutive 1’s that can be achieved.
+    public static int longestConsecutiveOnes(String A) { // important need to practice more and more
+        int n = A.length();
+        int totalOnes = 0;
+        for (char c : A.toCharArray()) {
+            if (c == '1') {
+                totalOnes++;
+            }
+        }
+
+        // If all characters are '1', no swap is needed. The length is the total number of ones.
+        if (totalOnes == n) {
+            return totalOnes;
+        }
+
+        int maxLen = 0;
+        int leftOnes = 0;
+        for (int i = 0; i < n; i++) {
+            if (A.charAt(i) == '1') {
+                leftOnes++;
+            } else { // We found a '0'
+                // Look ahead to find consecutive ones on the right
+                int rightOnes = 0;
+                int j = i + 1;
+                while (j < n && A.charAt(j) == '1') {
+                    rightOnes++;
+                    j++;
+                }
+
+                int currentSum = leftOnes + rightOnes;
+                if (currentSum < totalOnes) {
+                    // We can swap a '1' from elsewhere into the '0's place
+                    maxLen = Math.max(maxLen, currentSum + 1);
+                } else {
+                    // No extra '1's to swap in, so we just group the existing ones
+                    maxLen = Math.max(maxLen, currentSum);
+                }
+
+                // Reset leftOnes for the next segment
+                leftOnes = 0;
+            }
+        }
+
+        // Final check for a string that ends with '1's (e.g., "00111")
+        // In this case, 'maxLen' might not have been updated for the last block of ones.
+        return Math.max(maxLen, leftOnes);
+    }
+
 
     // Methods
     //First concatenate the string with itself so string A becomes "aeiOUzaeiOUz".
@@ -197,4 +278,85 @@ public class String_ScalerClass {
         }
         return new String(chars);
     }
+
+    //Q2. Reverse the String
+    //You are given a string A of size N.
+    //Return the string A after reversing the string word by word.
+    //NOTE:A sequence of non-space characters constitutes a word.
+    //Your reversed string should not contain leading or trailing spaces, even if it is present in the input string.
+    //If there are multiple spaces between words, reduce them to a single space in the reversed string.
+
+    public static String reverseWords(String A){
+        String[] words = A.trim().split("\\s+");
+        StringBuilder sb = new StringBuilder();
+        int n = words.length;
+        for(int i = n-1; i >= 0; i--){
+            sb.append(words[i]);
+            if(i>0){
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
+    // Q2. Colorful Number
+    // A number is COLORFUL if the product of every consecutive sequence of digits is unique.
+    // Return 1 if it is, 0 otherwise.
+    public static int colorfulNumber(int A) {
+        // Convert the number to a string to easily access its digits.
+        String numStr = Integer.toString(A);
+        // Use a HashSet to keep track of the products we have already seen.
+        HashSet<Long> productSet = new HashSet<>();
+        int n = numStr.length();
+        // Outer loop: Determines the starting digit of the subsequence.
+        for (int i = 0; i < n; i++) {
+            // This will hold the product of digits for the current subsequence.
+            // Use 'long' to prevent overflow for larger products.
+            long currentProduct = 1L;
+            // Inner loop: Extends the subsequence from the start 'i' to the end of the number.
+            for (int j = i; j < n; j++) {
+                // Get the digit at position 'j' and multiply it with the current product.
+                // (numStr.charAt(j) - '0') converts the character digit to an integer.
+                currentProduct *= (numStr.charAt(j) - '0');
+
+                // Try to add the product to our set.
+                // If the product is already in the set, .add() will return 'false'.
+                if (!productSet.add(currentProduct)) {
+                    // We found a duplicate product, so the number is not colorful.
+                    return 0;
+                }
+            }
+        }
+        // If we finish all the loops without finding any duplicates, the number is colorful.
+        return 1;
+    }
+
+    //Q4. Check anagrams
+    //You are given two lowercase strings A and B each of length N. Return 1 if they are anagrams to each other and 0 if not.
+    //Note : Two strings A and B are called anagrams to each other if A can be formed after rearranging the letters of B.
+    public static int anagrams(String A, String B){
+        String str1 = A.replaceAll("\\s+", " ");
+        String str2 = B.replaceAll("\\s+", " ");
+        if(str1.length() != str2.length()){
+            return 0;
+        }else{
+            char[] c1 = str1.toLowerCase().toCharArray();
+            char[] c2 = str2.toLowerCase().toCharArray();
+            Arrays.sort(c1);
+            Arrays.sort(c2);
+            if(Arrays.equals(c1, c2)){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+    }
+
+    //Count and say
+    // veryimportant amazon, facebook
+
+
 }
+
+
+

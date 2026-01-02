@@ -1,6 +1,8 @@
 package DSA_Programming;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class twoDMatrix {
     public static void main(String[] args){
@@ -27,7 +29,17 @@ public class twoDMatrix {
         int[][] transposeNonsquareop = transposeNonsquare(mat4);
         System.out.println((Arrays.deepToString(transposeop)));
         System.out.println((Arrays.deepToString(transposeNonsquareop)));
+        ArrayList<ArrayList<Integer>> mat5 = new ArrayList<>();
+        mat5.add(new ArrayList<>(Arrays.asList(1, 2, 3)));
+        mat5.add(new ArrayList<>(Arrays.asList(4, 5, 6)));
+        mat5.add(new ArrayList<>(Arrays.asList(7, 8, 9)));
+        ArrayList<ArrayList<Integer>> rotateMatrixop = rotateMatrix(mat5);
+        System.out.println(rotateMatrixop);
+        int[][] mat6 = {{1,2,3},{4,5,6},{7,8,9}};
+        int[][] mat7 = {{9,8,7},{6,5,4},{3,2,1}};
+        System.out.println("Add Matrices: "+Arrays.deepToString(addmatrices(mat6,mat7)));
     }
+
 
     //Print Anti Diagonal
     public static int[][] antidiagonal(int[][] A){
@@ -202,6 +214,43 @@ public class twoDMatrix {
             }
         }
         return transpose;
+    }
+
+    //Q1. Rotate Matrix
+    //You are given a n x n 2D matrix A representing an image.
+    //Rotate the image by 90 degrees (clockwise).
+    //You need to do this in place . Note: If you end up using an additional array, you will only receive partial score.
+
+    public static ArrayList<ArrayList<Integer>> rotateMatrix(ArrayList<ArrayList<Integer>> A){
+        int n = A.size();
+        //Tranpose of Matrix
+        for(int i = 0 ; i < n ;i++){
+            for(int j = i+1; j < n;j++){
+                int temp = A.get(i).get(j);
+                A.get(i).set(j ,A.get(j).get(i) );
+                A.get(j).set(i , temp);
+            }
+        }
+        // Reverse each ROW (A[i] is the row array)
+        for(int i = 0 ; i<n;i++){
+            Collections.reverse(A.get(i));
+        }
+        return A;
+    }
+
+    //Q3. Add the matrices
+    //You are given two matrices A & B of same size, you have to return another matrix which is the sum of A and B.
+    //Note: Matrices are of same size means the number of rows and number of columns of both matrices are equal.
+    public static int[][] addmatrices(int[][] A, int[][] B){
+        int n = A.length;
+        int m = A[0].length;
+        int[][] result = new int[n][m];
+        for(int i =0;i<n;i++){
+            for(int j=0;j<m;j++){
+                result[i][j] = A[i][j] + B[i][j];
+            }
+        }
+        return result;
     }
 
 

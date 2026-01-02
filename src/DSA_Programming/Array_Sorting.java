@@ -7,7 +7,7 @@ import java.util.Collections;
 public class Array_Sorting {
     public static void main(String[] args) {
         //declares and initializes
-        int[] A = {3,2,4,6,3,4,6,9,0,4,5,7,8,5,3};
+        int[] A = {3,2,4,6,3,4,6,9,0,4,5,7,8,5,3,3};
         int[] nobleInteger = {-10,-5,3,4,1,5};
         // single
         int B = 6;
@@ -22,6 +22,8 @@ public class Array_Sorting {
         System.out.println("Kth Smallest Element: " + kthSmallestElementOp);
         int nobleIntegerCountOp = nobleIntegerCount(nobleInteger);
         System.out.println("Noble Integer count: " + nobleIntegerCountOp);
+        int repeatedNumberOp = repeatedNumber(A);
+        System.out.println("Repeated Number: " + repeatedNumberOp);
     }
 
     //Methods and Functions
@@ -82,5 +84,49 @@ public class Array_Sorting {
             }
         }
         return (int)count ;
+    }
+
+    //Q1. N/3 Repeat Number
+    //You're given a read-only array of N integers. Find out if any integer occurs more than N/3 times in the array in linear time and constant additional space.
+    //If so, return the integer. If not, return -1
+    //If there are multiple solutions, return any one.
+    //Note: Read-only array means that the input array should not be modified in the process of solving the problem
+    public static int repeatedNumber(int[] A) {
+        int n = A.length;
+        int cand1 = -1, count1 = 0;
+        int cand2 = -2, count2 = 0;
+        for(int i : A){
+            if(cand1 == i){
+                count1++;
+            }else if(cand2 == i){
+                count2++;
+            }else if(count1 == 0){
+                cand1 = i;
+                count1 = 1;
+            }else if(count2 == 0){
+                cand2 = i;
+                count2 = 1;
+            }else{
+                count1 --;
+                count2 --;
+            }
+        }
+        count1 = 0;
+        if (cand1 != -1) {
+            for (int num : A) {
+                if (num == cand1) count1++;
+            }
+            if (count1 > n / 3) return cand1;
+        }
+
+        count2 = 0;
+        if (cand2 != -1) {
+            for (int num : A) {
+                if (num == cand2) count2++;
+            }
+            if (count2 > n / 3) return cand2;
+        }
+
+        return -1;
     }
 }
