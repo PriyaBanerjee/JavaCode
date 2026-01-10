@@ -54,6 +54,9 @@ public class PracticeCode {
         int B4 = 65;
         int GoodsubarrayOP  = Goodsubarray(A4,B4);
         System.out.println("Good Subarrays: " + GoodsubarrayOP);
+        int n = 4;
+        boolean isPrimeOP = isPrime(n);
+        System.out.println("Is Prime: " + isPrimeOP);
     }
 
 
@@ -397,5 +400,17 @@ public class PracticeCode {
         }
 
         return ans;
+    }
+
+    public static boolean isPrime(int A){
+       if(A == 0) return false;
+       if( A == 2) return true;
+       if(A % 2 == 0) return false;
+        for(int i = 3; i*i <= A; i += 2){
+            if(A % i == 0){
+                return false;
+            }
+        }
+        return true;
     }
 }
